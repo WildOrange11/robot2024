@@ -1,0 +1,21 @@
+{
+	"extension": {
+		"version": "0.6.0",
+		"json": 2
+	},
+	"project": {
+		"name": "robot2024",
+		"description": "",
+		"creationDate": "10/19/2024, 8:29:46 AM",
+		"platform": "V5",
+		"language": "cpp",
+		"slot": 1,
+		"sdkVersion": "V5_20240223_11_00_00",
+		"cpp": {
+			"includePath": [
+				"C:/Users/rishi/documents/Vex Robotics/robot2024/include/vex.h"
+			],
+			"printf_float": true
+		}
+	}
+}
