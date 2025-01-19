@@ -6,13 +6,13 @@ using namespace vex;
 brain B;
 
 motor chain = motor(PORT1, ratio18_1);
-motor LMotor1 = motor(PORT2, ratio6_1); //For these motors - Add "reverse" if necessary
-motor LMotor2 = motor(PORT3, ratio6_1);
-motor LMotor3 = motor(PORT4, ratio6_1);
-motor RMotor1 = motor(PORT5, ratio6_1);
-motor RMotor2 = motor(PORT6, ratio6_1);
-motor RMotor3 = motor(PORT7, ratio6_1);
-motor intake = motor(PORT9, ratio18_1);
+motor LMotor1 = motor(PORT2, true); //For these motors - Add "reverse" if necessary
+motor LMotor2 = motor(PORT3, true);
+motor LMotor3 = motor(PORT4, true);
+motor RMotor1 = motor(PORT5);
+motor RMotor2 = motor(PORT6);
+motor RMotor3 = motor(PORT7);
+motor intake = motor(PORT9);
 
 motor_group L1 = motor_group(LMotor1, LMotor2, LMotor3);
 motor_group R1 = motor_group(RMotor1, RMotor2, RMotor3);
@@ -81,7 +81,7 @@ void usercontrol(void)
     fbpos = C1.Axis3.position();
     lrpos = C1.Axis1.position();
     if (fbpos > 10 and -10 < lrpos < 10)
-    {
+    { 
       d1.drive(forward);
     }
     else if (fbpos < -10)
@@ -94,11 +94,11 @@ void usercontrol(void)
     }
     if (lrpos > 10)
     {
-      d1.turnFor(left, 2, deg);
+      d1.turnFor(right, 2, deg);
     }
     else if (lrpos < -10)
     {
-      d1.turnFor(right, 2, deg);
+      d1.turnFor(left, 2, deg);
     }
   }
 
