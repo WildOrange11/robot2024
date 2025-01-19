@@ -67,12 +67,12 @@ void autonomous(void)
   // There are 4 possible starting positions of the robot. The robot will always be placed so that the center of the robot is on the starting line...
 
   // Code for red alliance, right side
-  chain.spinFor(5, sec, false);
+  chain.spinFor(forward, 1000, deg, false);
   d1.driveFor(18, inches);
   d1.turnFor(90, deg);
 }
-void usercontrol(void)
-{
+
+
   void usercontrol(void)
 {
   while (1)
