@@ -1,12 +1,11 @@
 #include "vex.h"
-
 using namespace vex;
 
 // define your global instances of motors and other devices here
 brain B;
 
 motor chain = motor(PORT1, ratio18_1);
-motor LMotor1 = motor(PORT2, true); //For these motors - Add "reverse" if necessary
+motor LMotor1 = motor(PORT2, true); // For these motors - Add "reverse" if necessary
 motor LMotor2 = motor(PORT3, true);
 motor LMotor3 = motor(PORT4, true);
 motor RMotor1 = motor(PORT5);
@@ -58,21 +57,19 @@ void pre_auton(void)
 {
   chain.setVelocity(100, percent);
   intake.setVelocity(100, percent);
-  L1.setVelocity(100,percent);
-  R1.setVelocity(100,percent);
+  L1.setVelocity(100, percent);
+  R1.setVelocity(100, percent);
   intake.spin(forward);
 }
 
 void autonomous(void)
 {
-  //There are 4 possible starting positions of the robot. The robot will always be placed so that the center of the robot is on the starting line...
-  
-  //Code for red alliance, right side
-  chain.spinFor(5,sec);
-  d1.driveFor(18,inches);
-  d1.turnFor(90,deg);
+  // There are 4 possible starting positions of the robot. The robot will always be placed so that the center of the robot is on the starting line...
 
-
+  // Code for red alliance, right side
+  chain.spinFor(5, sec);
+  d1.driveFor(18, inches);
+  d1.turnFor(90, deg);
 }
 void usercontrol(void)
 {
@@ -81,7 +78,7 @@ void usercontrol(void)
     fbpos = C1.Axis3.position();
     lrpos = C1.Axis1.position();
     if (fbpos > 10 and -10 < lrpos < 10)
-    { 
+    {
       d1.drive(forward);
     }
     else if (fbpos < -10)
@@ -90,7 +87,7 @@ void usercontrol(void)
     }
     else if (-10 < lrpos < 10)
     {
-      d1.stop(); //Stop only if the left-right axis is not pressed
+      d1.stop(); // Stop only if the left-right axis is not pressed
     }
     if (lrpos > 10)
     {
@@ -105,11 +102,18 @@ void usercontrol(void)
   if (C1.ButtonL2.pressing())
   {
     chain.spin(forward);
-    intake.spin(forward);
   }
   else
   {
     chain.stop();
+  }
+  if (C1.ButtonR1.pressing())
+  {
+    intake.spin(forward)
+  }
+  else
+  {
+    intake.stop()
   }
   if (C1.ButtonR2.pressing())
   {
