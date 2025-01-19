@@ -67,63 +67,56 @@ void autonomous(void)
   // There are 4 possible starting positions of the robot. The robot will always be placed so that the center of the robot is on the starting line...
 
   // Code for red alliance, right side
-  chain.spinFor(5, sec);
+  chain.spinFor(5, sec, false);
   d1.driveFor(18, inches);
   d1.turnFor(90, deg);
 }
 void usercontrol(void)
 {
+  void usercontrol(void)
+{
   while (1)
   {
-    fbpos = C1.Axis3.position();
-    lrpos = C1.Axis1.position();
-    if (fbpos > 10 and -10 < lrpos < 10)
-    {
-      d1.drive(forward);
-    }
-    else if (fbpos < -10)
-    {
-      d1.drive(reverse);
-    }
-    else if (-10 < lrpos < 10)
-    {
-      d1.stop(); // Stop only if the left-right axis is not pressed
-    }
-    if (lrpos > 10)
-    {
-      d1.turnFor(right, 2, deg);
-    }
-    else if (lrpos < -10)
-    {
-      d1.turnFor(left, 2, deg);
-    }
-  }
+    // Get the controller positions
+    fbpos = C1.Axis3.position();  // Forward/Backward
+    lrpos = C1.Axis1.position();  // Left/Right
 
-  if (C1.ButtonL2.pressing())
-  {
-    chain.spin(forward);
+    // Apply controller input to drivetrain
+    L1.spin(forward, fbpos + lrpos, percent);  // Left motors
+    R1.spin(forward, fbpos - lrpos, percent);  // Right motors
+
+    // Chain control with ButtonL2
+    if (C1.ButtonL2.pressing())
+    {
+      chain.spin(forward);
+    }
+    else
+    {
+      chain.stop();
+    }
+
+    // Intake control with ButtonR1
+    if (C1.ButtonR1.pressing())
+    {
+      intake.spin(forward);
+    }
+    else
+    {
+      intake.stop();
+    }
+
+    // Goal control with ButtonR2
+    if (C1.ButtonR2.pressing())
+    {
+      goal1.set(false);
+    }
+    else
+    {
+      goal1.set(true);
+    }
+
+    wait(20, msec);  // Small delay to prevent max CPU load
   }
-  else
-  {
-    chain.stop();
-  }
-  if (C1.ButtonR1.pressing())
-  {
-    intake.spin(forward)
-  }
-  else
-  {
-    intake.stop()
-  }
-  if (C1.ButtonR2.pressing())
-  {
-    goal1.set(false);
-  }
-  else
-  {
-    goal1.set(true);
-  }
-  wait(0.2, sec);
 }
 
 int main()
