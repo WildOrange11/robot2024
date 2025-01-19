@@ -82,8 +82,8 @@ void usercontrol(void)
     lrpos = C1.Axis1.position();  // Left/Right
 
     // Apply controller input to drivetrain
-    L1.spin(forward, fbpos + lrpos, percent);  // Left motors
-    R1.spin(forward, fbpos - lrpos, percent);  // Right motors
+    L1.spin(forward, fbpos - lrpos, percent);  // Left motors
+    R1.spin(forward, fbpos + lrpos, percent);  // Right motors
 
     // Chain control with ButtonL2
     if (C1.ButtonL2.pressing())
