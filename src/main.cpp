@@ -76,7 +76,7 @@ void autonomous(void)
   void usercontrol(void)
 {
   while (1)
-  { 
+  {
     // Get the controller positions
     fbpos = C1.Axis3.position();  // Forward/Backward
     lrpos = C1.Axis1.position();  // Left/Right
@@ -95,48 +95,48 @@ void autonomous(void)
       chain.stop();
     }*/
 
-    // Intake control with ButtonR1
-    /*if (C1.ButtonR1.pressing())
-    {
-      intake.spin(forward);
-    }
-    else
-    {
-      intake.stop();
-    }
+// Intake control with ButtonR1
+if (C1.ButtonR1.pressing())
+{
+  intake.spin(forward);
+}
+else
+{
+  intake.stop();
+}
 
-    // Goal control with ButtonR2
-    if (C1.ButtonR2.pressing())
-    {
-      goal1.set(false);
-    }
-    else
-    {
-      goal1.set(true);
-    }*/
-      
-    wait(20, msec);  // Small delay to prevent max CPU load
-  }
+// Goal control with ButtonR2
+if (C1.ButtonR2.pressing())
+{
+  goal1.set(false);
+}
+else
+{
+  goal1.set(true);
+}*/
+
+wait(20, msec);  // Small delay to prevent max CPU load
+}
 }
 
 int main()
 {
-  // Run the pre-autonomous function.
-  pre_auton();
-  // Set up callbacks for autonomous and driver control periods.
-  Competition.autonomous(autonomous);
-  Competition.drivercontrol(usercontrol);
+// Run the pre-autonomous function.
+pre_auton();
+// Set up callbacks for autonomous and driver control periods.
+Competition.autonomous(autonomous);
+Competition.drivercontrol(usercontrol);
 
-  while (true)
-  {
-    wait(0.5, sec);
-  }
-
-/*#include "vex.h"
+while (true)
+{
+wait(0.5, sec);
+}
+}
+/*#include "vex.h"*/
 
 using namespace vex;
 
-// define your global instances of motors and other devices here
+/*/ define your global instances of motors and other devices here
 brain B;
 
 motor chain = motor(PORT1, ratio18_1);
@@ -200,7 +200,7 @@ void pre_auton(void)
 void autonomous(void)
 {
   //There are 4 possible starting positions of the robot. The robot will always be placed so that the center of the robot is on the starting line...
-  
+
   //Code for red alliance, right side
   chain.spinFor(5,sec);
   d1.driveFor(18,inches);
@@ -269,3 +269,5 @@ int main()
     wait(0.5, sec);
   }
 }*/
+
+
