@@ -5,12 +5,12 @@ using namespace vex;
 brain B;
 
 //motor chain = motor(PORT1, ratio18_1);
-motor LMotor1 = motor(PORT2, true); // For these motors - Add "reverse" if necessary
-motor LMotor2 = motor(PORT3, true);
-motor LMotor3 = motor(PORT4, true);
-motor RMotor1 = motor(PORT5);
-motor RMotor2 = motor(PORT6);
-motor RMotor3 = motor(PORT7);
+motor LMotor1 = motor(PORT2,ratio18_1); // For these motors - Add "reverse" if necessary
+motor LMotor2 = motor(PORT3,ratio18_1);
+motor LMotor3 = motor(PORT4,ratio18_1);
+motor RMotor1 = motor(PORT5,ratio18_1,true);
+motor RMotor2 = motor(PORT6,ratio18_1,true);
+motor RMotor3 = motor(PORT7,ratio18_1,true);
 //motor intake = motor(PORT9);
 
 motor_group L1 = motor_group(LMotor1, LMotor2, LMotor3);
@@ -64,9 +64,6 @@ void pre_auton(void)
 
 void autonomous(void)
 {
-  // There are 4 possible starting positions of the robot. The robot will always be placed so that the center of the robot is on the starting line...
-
-  // Code for red alliance, right side
   //chain.spinFor(forward, 1000, deg, false);
   d1.driveFor(18, inches);
   d1.turnFor(90, deg);
@@ -77,43 +74,22 @@ void autonomous(void)
 {
   while (1)
   {
-    // Get the controller positions
-    fbpos = C1.Axis3.position();  // Forward/Backward
-    lrpos = C1.Axis1.position();  // Left/Right
-
-    // Apply controller input to drivetrain
-    L1.spin(forward, fbpos - lrpos, percent);  // Left motors
-    R1.spin(forward, fbpos + lrpos, percent);  // Right motors
-
-    // Chain control with ButtonL2
-    /*if (C1.ButtonL2.pressing())
-    {
-      chain.spin(forward);
+    if(C1.ButtonUp.pressing()){
+      d1.drive(forward);
+      wait(10,msec);
+    }else if(C1.ButtonDown.pressing()){
+      d1.drive(reverse);
+      wait(10,msec);
+    }else if(C1.ButtonLeft.pressing()){
+      d1.turn(left);
+      wait(10,msec);
+    }else if(C1.ButtonRight.pressing()){
+      d1.turn(right);
+      wait(10,msec);
+    }else{
+      d1.stop();
     }
-    else
-    {
-      chain.stop();
-    }*/
-
-// Intake control with ButtonR1
-if (C1.ButtonR1.pressing())
-{
-  intake.spin(forward);
-}
-else
-{
-  intake.stop();
-}
-
-// Goal control with ButtonR2
-if (C1.ButtonR2.pressing())
-{
-  goal1.set(false);
-}
-else
-{
-  goal1.set(true);
-}*/
+    
 
 wait(20, msec);  // Small delay to prevent max CPU load
 }
