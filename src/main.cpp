@@ -4,21 +4,21 @@ using namespace vex;
 // define your global instances of motors and other devices here
 brain B;
 
-//motor chain = motor(PORT1, ratio18_1);
-motor LMotor1 = motor(PORT2,ratio18_1); // For these motors - Add "reverse" if necessary
-motor LMotor2 = motor(PORT3,ratio18_1);
-motor LMotor3 = motor(PORT4,ratio18_1);
-motor RMotor1 = motor(PORT5,ratio18_1,true);
-motor RMotor2 = motor(PORT6,ratio18_1,true);
-motor RMotor3 = motor(PORT7,ratio18_1,true);
-//motor intake = motor(PORT9);
+// motor chain = motor(PORT1, ratio18_1);
+motor LMotor1 = motor(PORT2, ratio18_1); // For these motors - Add "reverse" if necessary
+motor LMotor2 = motor(PORT3, ratio18_1);
+motor LMotor3 = motor(PORT4, ratio18_1);
+motor RMotor1 = motor(PORT5, ratio18_1, true);
+motor RMotor2 = motor(PORT6, ratio18_1, true);
+motor RMotor3 = motor(PORT7, ratio18_1, true);
+// motor intake = motor(PORT9);
 
 motor_group L1 = motor_group(LMotor1, LMotor2, LMotor3);
 motor_group R1 = motor_group(RMotor1, RMotor2, RMotor3);
 
 drivetrain d1 = drivetrain(L1, R1, 260, 400, 390);
 
-//digital_out goal1 = digital_out(B.ThreeWirePort.A);
+// digital_out goal1 = digital_out(B.ThreeWirePort.A);
 
 controller C1;
 
@@ -32,81 +32,91 @@ competition Competition;
 
 void PickRing()
 {
-  //chain.spin(forward);
-  //intake.spin(forward);
+  // chain.spin(forward);
+  // intake.spin(forward);
 }
 
 void PickGoal()
 {
-  //goal1.set(false);
+  // goal1.set(false);
 }
 
 void DropRing()
 {
-  //goal1.set(false);
-  //intake.spinFor(1000, deg);
-  //chain.spinFor(-1000, deg);
+  // goal1.set(false);
+  // intake.spinFor(1000, deg);
+  // chain.spinFor(-1000, deg);
 }
 
 void PlaceGoal()
 {
-  //goal1.set(true);
+  // goal1.set(true);
 }
 
 void pre_auton(void)
 {
-  //chain.setVelocity(100, percent);
-  //intake.setVelocity(100, percent);
+  // chain.setVelocity(100, percent);
+  // intake.setVelocity(100, percent);
   L1.setVelocity(100, percent);
   R1.setVelocity(100, percent);
-  //intake.spin(forward);
+  // intake.spin(forward);
 }
 
 void autonomous(void)
 {
-  //chain.spinFor(forward, 1000, deg, false);
-  d1.driveFor(18, inches);
-  d1.turnFor(90, deg);
+  // chain.spinFor(forward, 1000, deg, false);
+  for(int i = 0; i<3,i++)
+    {
+      d1.driveFor(18-i, inches);
+      d1.turnFor(90, deg);
+    }
 }
 
-
-  void usercontrol(void)
+void usercontrol(void)
 {
   while (1)
   {
-    if(C1.ButtonUp.pressing()){
+    if (C1.ButtonUp.pressing())
+    {
       d1.drive(forward);
-      wait(10,msec);
-    }else if(C1.ButtonDown.pressing()){
+      wait(10, msec);
+    }
+    else if (C1.ButtonDown.pressing())
+    {
       d1.drive(reverse);
-      wait(10,msec);
-    }else if(C1.ButtonLeft.pressing()){
+      wait(10, msec);
+    }
+    else if (C1.ButtonLeft.pressing())
+    {
       d1.turn(left);
-      wait(10,msec);
-    }else if(C1.ButtonRight.pressing()){
+      wait(10, msec);
+    }
+    else if (C1.ButtonRight.pressing())
+    {
       d1.turn(right);
-      wait(10,msec);
-    }else{
+      wait(10, msec);
+    }
+    else
+    {
       d1.stop();
     }
-    
 
-wait(20, msec);  // Small delay to prevent max CPU load
-}
+    wait(20, msec); // Small delay to prevent max CPU load
+  }
 }
 
 int main()
 {
-// Run the pre-autonomous function.
-pre_auton();
-// Set up callbacks for autonomous and driver control periods.
-Competition.autonomous(autonomous);
-Competition.drivercontrol(usercontrol);
+  // Run the pre-autonomous function.
+  pre_auton();
+  // Set up callbacks for autonomous and driver control periods.
+  Competition.autonomous(autonomous);
+  Competition.drivercontrol(usercontrol);
 
-while (true)
-{
-wait(0.5, sec);
-}
+  while (true)
+  {
+    wait(0.5, sec);
+  }
 }
 /*#include "vex.h"*/
 
@@ -245,5 +255,3 @@ int main()
     wait(0.5, sec);
   }
 }*/
-
-
